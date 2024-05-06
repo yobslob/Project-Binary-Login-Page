@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import javax.swing.*;
 
-public class loginpage2 implements ActionListener{
+public class loginpage implements ActionListener{
 		
 		JFrame frame =new JFrame("Login Page");
 		
@@ -22,7 +22,7 @@ public class loginpage2 implements ActionListener{
 		JLabel returnLabel = new JLabel("");
 		
 		HashMap<String,String> logininfo = new HashMap<String,String>();
-		loginpage2(HashMap<String,String> loginInfoOriginal){
+		loginpage(HashMap<String,String> loginInfoOriginal){
 			
 			logininfo =loginInfoOriginal;
 			
