@@ -1,10 +1,11 @@
-package Login;
+package secondProgram;
+import javax.swing.JOptionPane;
 
 public class main {
-    public static void main(String[] args){
 
-        idAndPass idnpass = new idAndPass();
-        loginPage login = new loginPage(idAndPass.getLoginInfo());
-
-    }
+	public static void main(String[] args) {
+		
+		new loginpage2(new idAndPass().getLoginInfo());
+		
+	}
 }
