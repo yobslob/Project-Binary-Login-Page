@@ -1,0 +1,128 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import javax.swing.*;
+
+public class Main implements ActionListener {
+
+    JFrame frame = new JFrame("Login Page");
+    JButton loginButton = new JButton("Login");
+    JButton resetButton = new JButton("Reset");
+    JTextField userIdField = new JTextField();
+    JPasswordField userPassField = new JPasswordField();
+    JLabel userIdLabel = new JLabel("Username");
+    JLabel userPassLabel = new JLabel("Password");
+    JLabel returnLabel = new JLabel("");
+    HashMap<String, String> loginInfo;
+
+    public Main() {
+        loginInfo = new IdAndPass().getLoginInfo();
+        initUI();
+
+        userIdLabel.setBounds(25, 40, 75, 30);
+        userIdLabel.setFont(new Font(null, Font.BOLD, 14));
+        userPassLabel.setBounds(25, 100, 75, 30);
+        userPassLabel.setFont(new Font(null, Font.BOLD, 14));
+
+        returnLabel.setBounds(110, 225, 225, 30);
+        returnLabel.setFont(new Font(null, Font.PLAIN, 14));
+
+        userIdField.setBounds(120, 45, 170, 25);
+        userIdField.setFont(new Font("corbel", Font.PLAIN, 12));
+        userPassField.setBounds(120, 105, 170, 25);
+        userPassField.setFont(new Font("corbel", Font.PLAIN, 12));
+
+        loginButton.setBounds(75, 180, 75, 25);
+        loginButton.setFocusable(false);
+
+        resetButton.setBounds(180, 180, 75, 25);
+        resetButton.setFocusable(false);
+
+        frame.add(userIdLabel);
+        frame.add(userPassLabel);
+        frame.add(returnLabel);
+        frame.add(userIdField);
+        frame.add(userPassField);
+        frame.add(loginButton);
+        frame.add(resetButton);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(350, 300);
+        frame.getContentPane().setBackground(new Color(240, 248, 255));
+        frame.setLayout(null);
+        frame.setVisible(true);
+    }
+
+    private void initUI() {
+        userIdLabel.setBounds(25, 40, 75, 30);
+        userIdLabel.setFont(new Font(null, Font.BOLD, 14));
+    
+        loginButton.addActionListener(this);
+        resetButton.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == resetButton) {
+            userIdField.setText("");
+            userPassField.setText("");
+            returnLabel.setText("");
+        }
+
+        if (e.getSource() == loginButton) {
+            String userId = userIdField.getText();
+            String password = String.valueOf(userPassField.getPassword());
+
+            if (loginInfo.containsKey(userId)) {
+                if (loginInfo.get(userId).equals(password)) {
+                    returnLabel.setForeground(Color.green);
+                    returnLabel.setText("Login successful");
+                    frame.dispose();
+                    new WelcomePage(userId);
+                } else {
+                    returnLabel.setForeground(Color.red);
+                    returnLabel.setText("Incorrect username/password");
+                }
+            } else {
+                returnLabel.setForeground(Color.red);
+                returnLabel.setText("User does not exist.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Main();
+    }
+}
+
+class IdAndPass {
+    private final HashMap<String, String> loginInfo = new HashMap<>();
+
+    public IdAndPass() {
+        loginInfo.put("Mukesh", "Muk@123");
+        loginInfo.put("Binod", "Bin@123");
+        loginInfo.put("Rani", "Ran@123");
+    }
+
+    public HashMap<String, String> getLoginInfo() {
+        return loginInfo;
+    }
+}
+
+class WelcomePage {
+
+    JFrame frame = new JFrame();
+    JLabel welcomeLabel = new JLabel("Welcome to Instagram!");
+
+    public WelcomePage(String userId) {
+        welcomeLabel.setBounds(0, 0, 200, 30);
+        welcomeLabel.setFont(new Font(null, Font.PLAIN, 16));
+        welcomeLabel.setText("Hello " + userId);
+        frame.add(welcomeLabel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+        frame.setLayout(null);
+        frame.setVisible(true);
+    }
+}
